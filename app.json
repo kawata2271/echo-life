@@ -30,6 +30,9 @@
       "output": "static",
       "backgroundColor": "#0f0d0b"
     },
+    "experiments": {
+      "baseUrl": "/echo-life"
+    },
     "plugins": [
       "expo-router",
       "expo-font",
