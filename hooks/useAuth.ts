@@ -1,14 +1,12 @@
 import { useState, useCallback } from 'react'
 import { router } from 'expo-router'
-import { MMKV } from 'react-native-mmkv'
-
-const storage = new MMKV({ id: 'auth-store' })
+import { storage } from '../lib/storage'
 
 const TOKEN_KEY = 'auth_token'
 const REFRESH_TOKEN_KEY = 'auth_refresh_token'
 
 export function useAuth() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => !!storage.getString(TOKEN_KEY))
+  const [isLoggedIn, setIsLoggedIn] = useState(() => !!storage.get<string>(TOKEN_KEY))
 
   const login = useCallback(async (email: string, password: string) => {
     const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3001'
@@ -55,14 +53,14 @@ export function useAuth() {
   }, [])
 
   const logout = useCallback(() => {
-    storage.delete(TOKEN_KEY)
-    storage.delete(REFRESH_TOKEN_KEY)
+    storage.remove(TOKEN_KEY)
+    storage.remove(REFRESH_TOKEN_KEY)
     setIsLoggedIn(false)
     router.replace('/(onboarding)')
   }, [])
 
   const getToken = useCallback((): string | null => {
-    return storage.getString(TOKEN_KEY) ?? null
+    return storage.get<string>(TOKEN_KEY)
   }, [])
 
   return { isLoggedIn, login, signup, logout, getToken }

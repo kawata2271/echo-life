@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Pressable, StyleSheet } from 'react-native'
-import * as Haptics from 'expo-haptics'
+import { hapticSelection } from '../../lib/platform'
 import { Typography } from './Typography'
 import { TOKENS } from '../../constants/tokens'
 
@@ -14,7 +14,7 @@ interface Props {
 
 export function EmotionReaction({ selected, onToggle }: Props) {
   const handlePress = (emoji: ReactionEmoji) => {
-    Haptics.selectionAsync()
+    hapticSelection()
     onToggle(emoji)
   }
 

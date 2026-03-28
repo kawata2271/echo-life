@@ -1,16 +1,8 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
+import { zustandStorage } from '../lib/storage'
 import type { Player, PlayerSettings } from '../types'
-
-const mmkv = new MMKV({ id: 'player-store' })
-
-const mmkvStorage = {
-  getItem: (key: string) => mmkv.getString(key) ?? null,
-  setItem: (key: string, value: string) => mmkv.set(key, value),
-  removeItem: (key: string) => mmkv.delete(key),
-}
 
 interface PlayerState {
   player: Player | null
@@ -55,7 +47,7 @@ export const usePlayerStore = create<PlayerState>()(
     })),
     {
       name: 'echo-player',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => zustandStorage),
     }
   )
 )

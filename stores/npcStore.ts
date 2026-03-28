@@ -1,18 +1,10 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
+import { zustandStorage } from '../lib/storage'
 import type { NPC, NPCRole, NPCEmotionDelta } from '../types/npc'
 import { RELATIONSHIP_THRESHOLDS } from '../types/npc'
 import { NPC_SEEDS } from '../data/npcSeeds'
-
-const mmkv = new MMKV({ id: 'npc-store' })
-
-const mmkvStorage = {
-  getItem: (key: string) => mmkv.getString(key) ?? null,
-  setItem: (key: string, value: string) => mmkv.set(key, value),
-  removeItem: (key: string) => mmkv.delete(key),
-}
 
 interface NPCState {
   npcs: NPC[]
@@ -112,7 +104,7 @@ export const useNPCStore = create<NPCState>()(
     })),
     {
       name: 'echo-npc',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => zustandStorage),
     }
   )
 )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Pressable, StyleSheet, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import * as Haptics from 'expo-haptics'
+import { hapticMedium } from '../../lib/platform'
 import { Typography } from '../ui/Typography'
 import { TOKENS } from '../../constants/tokens'
 import { emotionToEmoji, emotionToColor } from '../../lib/emotions'
@@ -24,7 +24,7 @@ export function ChoiceCard({ event, onChoiceSelect }: Props) {
   const handleChoice = (choice: Choice) => {
     if (selectedId) return
     setSelectedId(choice.id)
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+    hapticMedium()
     setTimeout(() => {
       onChoiceSelect(choice.id)
     }, 500)

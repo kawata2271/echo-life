@@ -1,18 +1,10 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
+import { zustandStorage } from '../lib/storage'
 import type { StoryEvent, EventReaction, EmotionTag } from '../types/events'
 import { STATIC_STORIES } from '../data/staticStories'
 import { useAvatarStore } from './avatarStore'
-
-const mmkv = new MMKV({ id: 'story-store' })
-
-const mmkvStorage = {
-  getItem: (key: string) => mmkv.getString(key) ?? null,
-  setItem: (key: string, value: string) => mmkv.set(key, value),
-  removeItem: (key: string) => mmkv.delete(key),
-}
 
 interface StoryState {
   todayEvents: StoryEvent[]
@@ -201,7 +193,7 @@ export const useStoryStore = create<StoryState>()(
     })),
     {
       name: 'echo-story',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => zustandStorage),
     }
   )
 )

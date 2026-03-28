@@ -1,17 +1,9 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
+import { zustandStorage } from '../lib/storage'
 import type { Avatar, StatusDelta, AvatarAppearance, LifeTheme } from '../types'
 import { applyStatusDelta } from '../types'
-
-const mmkv = new MMKV({ id: 'avatar-store' })
-
-const mmkvStorage = {
-  getItem: (key: string) => mmkv.getString(key) ?? null,
-  setItem: (key: string, value: string) => mmkv.set(key, value),
-  removeItem: (key: string) => mmkv.delete(key),
-}
 
 interface AvatarState {
   avatar: Avatar | null
@@ -85,7 +77,7 @@ export const useAvatarStore = create<AvatarState>()(
     })),
     {
       name: 'echo-avatar',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => zustandStorage),
     }
   )
 )

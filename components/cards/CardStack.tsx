@@ -9,7 +9,7 @@ import Animated, {
   Extrapolation,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import * as Haptics from 'expo-haptics'
+import { hapticLight } from '../../lib/platform'
 import { StoryCard } from './StoryCard'
 import { ChoiceCard } from './ChoiceCard'
 import { EmptyDeck } from './EmptyDeck'
@@ -38,7 +38,7 @@ export function CardStack({ events, currentIndex, onSwipe, onChoiceSelect, onRea
   }
 
   const handleSwipeComplete = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    hapticLight()
     onSwipe()
     translateX.value = 0
     translateY.value = 0

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable, StyleSheet, ViewStyle } from 'react-native'
-import * as Haptics from 'expo-haptics'
+import { hapticSelection } from '../../lib/platform'
 import { Typography } from './Typography'
 import { TOKENS } from '../../constants/tokens'
 
@@ -16,7 +16,7 @@ interface Props {
 
 export function Button({ title, variant = 'primary', onPress, disabled, style }: Props) {
   const handlePress = () => {
-    Haptics.selectionAsync()
+    hapticSelection()
     onPress()
   }
 

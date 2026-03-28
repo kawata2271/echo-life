@@ -1,55 +1,27 @@
 import { MMKV } from 'react-native-mmkv'
 
-const storage = new MMKV({ id: 'echo-life-storage' })
+const mmkv = new MMKV({ id: 'echo-life' })
 
-export function getString(key: string): string | null {
-  try {
-    return storage.getString(key) ?? null
-  } catch (e) {
-    console.warn(`[Storage] getString error for key "${key}":`, e)
-    return null
-  }
+export const storage = {
+  get<T>(key: string): T | null {
+    try {
+      const raw = mmkv.getString(key)
+      return raw ? (JSON.parse(raw) as T) : null
+    } catch { return null }
+  },
+  set<T>(key: string, value: T): void {
+    try { mmkv.set(key, JSON.stringify(value)) } catch (_e) { /* noop */ }
+  },
+  remove(key: string): void {
+    try { mmkv.delete(key) } catch (_e) { /* noop */ }
+  },
+  clear(): void {
+    try { mmkv.clearAll() } catch (_e) { /* noop */ }
+  },
 }
 
-export function setString(key: string, value: string): void {
-  try {
-    storage.set(key, value)
-  } catch (e) {
-    console.warn(`[Storage] setString error for key "${key}":`, e)
-  }
-}
-
-export function getObject<T>(key: string, fallback: T): T {
-  try {
-    const raw = storage.getString(key)
-    if (!raw) return fallback
-    return JSON.parse(raw) as T
-  } catch (e) {
-    console.warn(`[Storage] getObject error for key "${key}":`, e)
-    return fallback
-  }
-}
-
-export function setObject<T>(key: string, value: T): void {
-  try {
-    storage.set(key, JSON.stringify(value))
-  } catch (e) {
-    console.warn(`[Storage] setObject error for key "${key}":`, e)
-  }
-}
-
-export function remove(key: string): void {
-  try {
-    storage.delete(key)
-  } catch (e) {
-    console.warn(`[Storage] remove error for key "${key}":`, e)
-  }
-}
-
-export function clear(): void {
-  try {
-    storage.clearAll()
-  } catch (e) {
-    console.warn(`[Storage] clear error:`, e)
-  }
+export const zustandStorage = {
+  getItem: (key: string) => mmkv.getString(key) ?? null,
+  setItem: (key: string, value: string) => mmkv.set(key, value),
+  removeItem: (key: string) => mmkv.delete(key),
 }
