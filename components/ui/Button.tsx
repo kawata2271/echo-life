@@ -30,8 +30,7 @@ export function Button({ title, variant = 'primary', onPress, disabled, style }:
         variantStyles[variant],
         pressed && styles.pressed,
         disabled && styles.disabled,
-        // @ts-expect-error web cursor
-        { cursor: 'pointer' },
+        { cursor: 'pointer' as any },
         style,
       ]}
     >

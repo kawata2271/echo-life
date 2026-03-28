@@ -11,8 +11,8 @@ export default function RootLayout() {
     SplashScreen.hideAsync()
   }, [])
 
-  const content = (
-    <>
+  return (
+    <View style={styles.root}>
       <StatusBar style="light" />
       <Stack
         screenOptions={{
@@ -21,19 +21,7 @@ export default function RootLayout() {
           animation: Platform.OS === 'web' ? 'none' : 'fade',
         }}
       />
-    </>
-  )
-
-  if (Platform.OS === 'web') {
-    return <View style={styles.root}>{content}</View>
-  }
-
-  // Native: wrap with GestureHandlerRootView
-  const { GestureHandlerRootView } = require('react-native-gesture-handler')
-  return (
-    <GestureHandlerRootView style={styles.root}>
-      {content}
-    </GestureHandlerRootView>
+    </View>
   )
 }
 

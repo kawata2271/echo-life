@@ -4,31 +4,11 @@ import { router } from 'expo-router'
 import { Typography } from '../../components/ui/Typography'
 import { Button } from '../../components/ui/Button'
 import { TOKENS } from '../../constants/tokens'
-import { isWeb } from '../../lib/platform'
-
-let Animated: any = View
-let FadeIn: any = null
-
-if (!isWeb) {
-  try {
-    const Reanimated = require('react-native-reanimated')
-    Animated = Reanimated.default
-    FadeIn = Reanimated.FadeIn
-  } catch {
-    // fallback to View
-  }
-}
 
 export default function WelcomeScreen() {
-  const CenterWrapper = isWeb ? View : Animated.View
-  const BottomWrapper = isWeb ? View : Animated.View
-
-  const centerProps = isWeb ? {} : { entering: FadeIn?.duration(1200) }
-  const bottomProps = isWeb ? {} : { entering: FadeIn?.delay(800).duration(800) }
-
   return (
     <View style={styles.container}>
-      <CenterWrapper {...centerProps} style={styles.center}>
+      <View style={styles.center}>
         <Typography variant="display" style={styles.title}>
           ECHO LIFE
         </Typography>
@@ -39,10 +19,10 @@ export default function WelcomeScreen() {
         >
           もう一つの人生
         </Typography>
-      </CenterWrapper>
-      <BottomWrapper {...bottomProps} style={styles.bottom}>
+      </View>
+      <View style={styles.bottom}>
         <Button title="始める" onPress={() => router.push('/(onboarding)/profile')} />
-      </BottomWrapper>
+      </View>
     </View>
   )
 }
