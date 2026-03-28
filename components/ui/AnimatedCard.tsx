@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyleSheet, ViewStyle } from 'react-native'
-import Animated, { FadeInDown } from 'react-native-reanimated'
+import { View, StyleSheet, type ViewStyle } from 'react-native'
 import { TOKENS } from '../../constants/tokens'
 
 interface Props {
@@ -9,14 +8,11 @@ interface Props {
   delay?: number
 }
 
-export function AnimatedCard({ children, style, delay = 0 }: Props) {
+export function AnimatedCard({ children, style }: Props) {
   return (
-    <Animated.View
-      entering={FadeInDown.delay(delay).duration(600).springify()}
-      style={[styles.card, style]}
-    >
+    <View style={[styles.card, style]}>
       {children}
-    </Animated.View>
+    </View>
   )
 }
 

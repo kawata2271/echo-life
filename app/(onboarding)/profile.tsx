@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
 import { router } from 'expo-router'
-import Animated, { FadeInRight, FadeOutLeft } from 'react-native-reanimated'
+// Reanimated entering/exiting removed for web compatibility
 import { Typography } from '../../components/ui/Typography'
 import { Button } from '../../components/ui/Button'
 import { TOKENS } from '../../constants/tokens'
@@ -47,7 +47,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Animated.View key={step} entering={FadeInRight} exiting={FadeOutLeft} style={styles.content}>
+      <View key={step} style={styles.content}>
         <Typography variant="heading" style={styles.title}>
           {STEPS[step].title}
         </Typography>
@@ -110,7 +110,7 @@ export default function ProfileScreen() {
             />
           </>
         )}
-      </Animated.View>
+      </View>
 
       <View style={styles.bottom}>
         <Button

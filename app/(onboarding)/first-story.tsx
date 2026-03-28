@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router'
-import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated'
 import { Typography } from '../../components/ui/Typography'
 import { Button } from '../../components/ui/Button'
 import { TOKENS } from '../../constants/tokens'
@@ -54,24 +53,24 @@ export default function FirstStoryScreen() {
 
   return (
     <View style={styles.container}>
-      <Animated.View entering={FadeIn.duration(1000)} style={styles.center}>
+      <View style={styles.center}>
         <Typography variant="heading" color={TOKENS.color.textSecondary}>
           分身が誕生した
         </Typography>
-      </Animated.View>
+      </View>
 
       {showName && (
-        <Animated.View entering={FadeIn.duration(800)} style={styles.nameContainer}>
+        <View style={styles.nameContainer}>
           <Typography variant="display" style={styles.name}>
             {params.name ?? '名無し'}
           </Typography>
-        </Animated.View>
+        </View>
       )}
 
       {showCard && (
-        <Animated.View entering={SlideInDown.duration(800).springify()} style={styles.bottom}>
+        <View style={styles.bottom}>
           <Button title="はじめる" onPress={handleStart} />
-        </Animated.View>
+        </View>
       )}
     </View>
   )
