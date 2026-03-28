@@ -1,9 +1,8 @@
 import { useEffect } from 'react'
+import { View, StyleSheet, Platform } from 'react-native'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { StyleSheet } from 'react-native'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -12,16 +11,28 @@ export default function RootLayout() {
     SplashScreen.hideAsync()
   }, [])
 
-  return (
-    <GestureHandlerRootView style={styles.root}>
+  const content = (
+    <>
       <StatusBar style="light" />
       <Stack
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: '#0f0d0b' },
-          animation: 'fade',
+          animation: Platform.OS === 'web' ? 'none' : 'fade',
         }}
       />
+    </>
+  )
+
+  if (Platform.OS === 'web') {
+    return <View style={styles.root}>{content}</View>
+  }
+
+  // Native: wrap with GestureHandlerRootView
+  const { GestureHandlerRootView } = require('react-native-gesture-handler')
+  return (
+    <GestureHandlerRootView style={styles.root}>
+      {content}
     </GestureHandlerRootView>
   )
 }

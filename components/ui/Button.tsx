@@ -24,11 +24,14 @@ export function Button({ title, variant = 'primary', onPress, disabled, style }:
     <Pressable
       onPress={handlePress}
       disabled={disabled}
+      role="button"
       style={({ pressed }) => [
         styles.base,
         variantStyles[variant],
         pressed && styles.pressed,
         disabled && styles.disabled,
+        // @ts-expect-error web cursor
+        { cursor: 'pointer' },
         style,
       ]}
     >
