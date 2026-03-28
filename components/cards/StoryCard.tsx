@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+import { GradientView } from '../ui/GradientView'
 import { Typography } from '../ui/Typography'
 import { EmotionReaction } from '../ui/EmotionReaction'
 import { TOKENS } from '../../constants/tokens'
@@ -24,7 +24,7 @@ export function StoryCard({ event, onReaction }: Props) {
   return (
     <View style={styles.container}>
       <View style={[styles.accentLine, { backgroundColor: accentColor }]} />
-      <LinearGradient
+      <GradientView
         colors={['#1a1510', '#1e1a14']}
         style={styles.gradient}
       >
@@ -46,7 +46,7 @@ export function StoryCard({ event, onReaction }: Props) {
             {formatEventDate(new Date(event.eventDate))}
           </Typography>
         </View>
-      </LinearGradient>
+      </GradientView>
     </View>
   )
 }

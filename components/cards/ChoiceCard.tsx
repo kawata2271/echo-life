@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Pressable, StyleSheet, Dimensions } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+import { GradientView } from '../ui/GradientView'
 import { hapticMedium } from '../../lib/platform'
 import { Typography } from '../ui/Typography'
 import { TOKENS } from '../../constants/tokens'
@@ -33,7 +33,7 @@ export function ChoiceCard({ event, onChoiceSelect }: Props) {
   return (
     <View style={styles.container}>
       <View style={[styles.accentLine, { backgroundColor: accentColor }]} />
-      <LinearGradient colors={['#1a1510', '#1e1a14']} style={styles.gradient}>
+      <GradientView colors={['#1a1510', '#1e1a14']} style={styles.gradient}>
         <Typography variant="heading" style={styles.title}>
           {event.title}
         </Typography>
@@ -70,7 +70,7 @@ export function ChoiceCard({ event, onChoiceSelect }: Props) {
             {formatEventDate(new Date(event.eventDate))}
           </Typography>
         </View>
-      </LinearGradient>
+      </GradientView>
     </View>
   )
 }
